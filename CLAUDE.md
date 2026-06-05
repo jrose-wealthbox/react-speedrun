@@ -52,3 +52,7 @@ React 18.3.1 · TypeScript 5 · function components only (no class components ex
 
 ### Mounting in crm-web (§17)
 React components are mounted into Rails views via `registerComponent` (the default) or 5 other patterns for edge cases. The wrong pattern causes memory leaks or broken Turbolinks navigation. Don't attempt §17 exercises until §1–§16 are solid.
+
+### Work on main
+
+This is a single-user, learning exercise repo. Work on git's `main` branch unless told otherwise.
