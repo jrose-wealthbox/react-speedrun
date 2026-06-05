@@ -1,0 +1,155 @@
+<!doctype html>
+<html>
+  <head>
+    <style>
+      body {
+        font-family: -apple-system, system-ui, sans-serif;
+        display: flex;
+        justify-content: center;
+        padding: 2rem;
+        background: #f0f2f5;
+      }
+      .card {
+        background: white;
+        border-radius: 12px;
+        padding: 1.5rem 2rem;
+        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.12);
+        width: 280px;
+      }
+      .name {
+        font-size: 1.3rem;
+        font-weight: 600;
+        margin: 0 0 0.25rem;
+      }
+      .location {
+        color: #555;
+        font-size: 0.9rem;
+        margin: 0 0 1rem;
+      }
+      .stats {
+        display: flex;
+        gap: 1.5rem;
+        border-top: 1px solid #eee;
+        padding-top: 1rem;
+      }
+      .stat-label {
+        font-size: 0.75rem;
+        color: #888;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+      }
+      .stat-value {
+        font-size: 1rem;
+        font-weight: 500;
+      }
+      .card-list {
+        display: flex;
+        gap: 1rem;
+        flex-wrap: wrap;
+      }
+      .card--blue {
+        background: #bce4f8;
+      }
+      .card--pink {
+        background: #fbd0e0;
+      }
+      .card--purple {
+        background: #e8d5fb;
+      }
+      .card--rainbow {
+        background: linear-gradient(
+          135deg,
+          #ffd6e0,
+          #ffecb3,
+          #d4f1c0,
+          #c0e8ff,
+          #e8d5fb
+        );
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script type="text/babel">
+      const users = [
+        {
+          name: "Alex Rivera",
+          gender: "Non-binary",
+          age: 34,
+          hometown: "Portland",
+          state: "OR",
+        },
+        {
+          name: "Majima Goro",
+          gender: "M?",
+          age: 54,
+          hometown: "Tokyo",
+          state: "JP",
+        },
+        {
+          name: "Haruka",
+          gender: "Female",
+          age: 10,
+          hometown: "Tokyo",
+          state: "JP",
+        },
+        {
+          name: "Saeko",
+          gender: "Female",
+          age: 29,
+          hometown: "Tokyo",
+          state: "JP",
+        },
+        {
+          name: "Kazuma Kiryu",
+          gender: "Male",
+          age: 52,
+          hometown: "Tokyo",
+          state: "JP",
+        },
+      ];
+
+      function genderBgClass(gender) {
+        const g = gender.toLowerCase();
+        if (g.includes("?")) return "card--rainbow";
+        if (g[0] == "m") return "card--blue";
+        if (g[0] == "f") return "card--pink";
+        if (g[0] == "p") return "card--purple";
+        return "";
+      }
+
+      function UserCard({ name, gender, age, hometown, state }) {
+        return (
+          <div className={`card ${genderBgClass(gender)}`}>
+            <p className="name">{name}</p>
+            <p className="location">
+              {hometown}, {state}
+            </p>
+            <div className="stats">
+              <div>
+                <div className="stat-label">Age</div>
+                <div className="stat-value">{age}</div>
+              </div>
+              <div>
+                <div className="stat-label">Gender</div>
+                <div className="stat-value">{gender}</div>
+              </div>
+            </div>
+          </div>
+        );
+      }
+
+      const root = ReactDOM.createRoot(document.getElementById("root"));
+      root.render(
+        <div className="card-list">
+          {users.map((user) => (
+            <UserCard key={user.name} {...user} />
+          ))}
+        </div>,
+      );
+    </script>
+  </body>
+</html>

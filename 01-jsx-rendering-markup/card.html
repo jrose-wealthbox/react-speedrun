@@ -1,0 +1,86 @@
+<!doctype html>
+<html>
+  <head>
+    <style>
+      body {
+        font-family: -apple-system, system-ui, sans-serif;
+        display: flex;
+        justify-content: center;
+        padding: 2rem;
+        background: #f0f2f5;
+      }
+      .card {
+        background: white;
+        border-radius: 12px;
+        padding: 1.5rem 2rem;
+        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.12);
+        width: 280px;
+      }
+      .name {
+        font-size: 1.3rem;
+        font-weight: 600;
+        margin: 0 0 0.25rem;
+      }
+      .location {
+        color: #555;
+        font-size: 0.9rem;
+        margin: 0 0 1rem;
+      }
+      .stats {
+        display: flex;
+        gap: 1.5rem;
+        border-top: 1px solid #eee;
+        padding-top: 1rem;
+      }
+      .stat-label {
+        font-size: 0.75rem;
+        color: #888;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+      }
+      .stat-value {
+        font-size: 1rem;
+        font-weight: 500;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script type="text/babel">
+      const user = {
+        name: "Alex Rivera",
+        gender: "Non-binary",
+        age: 34,
+        hometown: "Portland",
+        state: "OR",
+      };
+
+      function UserCard({ name, gender, age, hometown, state }) {
+        return (
+          <div className="card">
+            <p className="name">{name}</p>
+            <p className="location">
+              {hometown}, {state}
+            </p>
+            <div className="stats">
+              <div>
+                <div className="stat-label">Age</div>
+                <div className="stat-value">{age}</div>
+              </div>
+              <div>
+                <div className="stat-label">Gender</div>
+                <div className="stat-value">{gender}</div>
+              </div>
+            </div>
+          </div>
+        );
+      }
+
+      const root = ReactDOM.createRoot(document.getElementById("root"));
+      root.render(<UserCard {...user} />);
+    </script>
+  </body>
+</html>
