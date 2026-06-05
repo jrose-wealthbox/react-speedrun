@@ -1,293 +1,873 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>React Learning Curriculum — for a crm-web engineer new to React</title>
-<style>
-  /* Minimal formatting only — readability, not decoration. */
-  body { font: 16px/1.6 -apple-system, system-ui, sans-serif; max-width: 820px; margin: 2rem auto; padding: 0 1rem; color: #1a1a1a; }
-  h1 { line-height: 1.2; }
-  h2 { margin-top: 2.5rem; border-bottom: 1px solid #ddd; padding-bottom: .25rem; }
-  code { background: #f3f3f3; padding: .1em .35em; border-radius: 3px; font-size: .9em; }
-  .why { background: #f7f9fc; border-left: 3px solid #5b8def; padding: .5rem .9rem; margin: .6rem 0; }
-  .file { font-family: ui-monospace, monospace; font-size: .85em; color: #444; }
-  .local { background: #fff8e6; border-left: 3px solid #e0a800; padding: .5rem .9rem; margin: .6rem 0; }
-  ol.exercises { margin-top: .4rem; }
-  footer { margin-top: 3rem; border-top: 1px solid #ddd; padding-top: 1rem; color: #666; font-size: .9em; }
-  a { color: #2657c4; }
-</style>
-</head>
-<body>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>
+      React Learning Curriculum — for a crm-web engineer new to React
+    </title>
+    <style>
+      /* Minimal formatting only — readability, not decoration. */
+      body {
+        font:
+          16px/1.6 -apple-system,
+          system-ui,
+          sans-serif;
+        max-width: 820px;
+        margin: 2rem auto;
+        padding: 0 1rem;
+        color: #1a1a1a;
+      }
+      h1 {
+        line-height: 1.2;
+      }
+      h2 {
+        margin-top: 2.5rem;
+        border-bottom: 1px solid #ddd;
+        padding-bottom: 0.25rem;
+      }
+      code {
+        background: #f3f3f3;
+        padding: 0.1em 0.35em;
+        border-radius: 3px;
+        font-size: 0.9em;
+      }
+      .why {
+        background: #f7f9fc;
+        border-left: 3px solid #5b8def;
+        padding: 0.5rem 0.9rem;
+        margin: 0.6rem 0;
+      }
+      .file {
+        font-family: ui-monospace, monospace;
+        font-size: 0.85em;
+        color: #444;
+      }
+      .local {
+        background: #fff8e6;
+        border-left: 3px solid #e0a800;
+        padding: 0.5rem 0.9rem;
+        margin: 0.6rem 0;
+      }
+      ol.exercises {
+        margin-top: 0.4rem;
+      }
+      footer {
+        margin-top: 3rem;
+        border-top: 1px solid #ddd;
+        padding-top: 1rem;
+        color: #666;
+        font-size: 0.9em;
+      }
+      a {
+        color: #2657c4;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>🚀 React Learning Curriculum</h1>
+    <p>
+      For an experienced engineer who is new to React, grounded in how
+      <strong>crm-web</strong> actually uses it. Concepts run simplest → most
+      complex. Each section links a canonical resource, suggests 2–3 short
+      (~20–30 min) exercises, and points to where &amp; <em>why</em> the pattern
+      appears in this codebase.
+    </p>
 
-<h1>🚀 React Learning Curriculum</h1>
-<p>For an experienced engineer who is new to React, grounded in how <strong>crm-web</strong> actually uses it.
-Concepts run simplest → most complex. Each section links a canonical resource, suggests 2–3 short
-(~20–30 min) exercises, and points to where &amp; <em>why</em> the pattern appears in this codebase.</p>
+    <p>
+      <strong>Stack you're learning into:</strong> React 18.3.1, TypeScript 5,
+      function components only (no classes except error boundaries), Redux
+      Toolkit, TanStack React Query v4, react-hook-form, dnd-kit, Nivo charts,
+      and the in-house <code>@wds</code> design system. React here is
+      <strong>embedded inside a Rails + Angular monolith</strong>, not a
+      standalone SPA — that shapes the back half of this curriculum.
+    </p>
 
-<p><strong>Stack you're learning into:</strong> React 18.3.1, TypeScript 5, function components only (no classes except error boundaries),
-Redux Toolkit, TanStack React Query v4, react-hook-form, dnd-kit, Nivo charts, and the in-house
-<code>@wds</code> design system. React here is <strong>embedded inside a Rails + Angular monolith</strong>, not a standalone SPA — that shapes the back half of this curriculum.</p>
+    <section>
+      <h2>🧱 1. JSX &amp; Rendering Markup</h2>
+      <p>
+        The syntax that lets you write HTML-like markup in JavaScript, and how
+        React turns it into DOM.
+      </p>
+      <p>
+        📖
+        <a href="https://react.dev/learn/writing-markup-with-jsx"
+          >Writing Markup with JSX</a
+        >
+        ·
+        <a href="https://react.dev/learn/javascript-in-jsx-with-curly-braces"
+          >JavaScript in JSX</a
+        >
+      </p>
+      <ol class="exercises">
+        <li>
+          Build a static "profile card" component: avatar, name, title, a few
+          stats. Embed JS expressions with <code>{}</code> for the stats.
+        </li>
+        <li>
+          Convert a chunk of plain HTML (grab any small Rails partial) into
+          valid JSX — fix <code>class</code>→<code>className</code>,
+          self-closing tags, single root element.
+        </li>
+        <li>
+          Render a list of 5 hard-coded objects to a
+          <code>&lt;table&gt;</code> using only expressions (no
+          <code>.map</code> yet — just to feel JSX).
+        </li>
+      </ol>
+      <div class="why">
+        <strong>In crm-web:</strong>
+        <span class="file">app/javascript/components/SidebarBadge.tsx</span> — a
+        small, reusable badge. <strong>Why React:</strong> the badge owns
+        interactive popover state, so it's worth a component instead of
+        server-rendered Slim.
+      </div>
+    </section>
 
-<section>
-<h2>🧱 1. JSX &amp; Rendering Markup</h2>
-<p>The syntax that lets you write HTML-like markup in JavaScript, and how React turns it into DOM.</p>
-<p>📖 <a href="https://react.dev/learn/writing-markup-with-jsx">Writing Markup with JSX</a> ·
-<a href="https://react.dev/learn/javascript-in-jsx-with-curly-braces">JavaScript in JSX</a></p>
-<ol class="exercises">
-  <li>Build a static "profile card" component: avatar, name, title, a few stats. Embed JS expressions with <code>{}</code> for the stats.</li>
-  <li>Convert a chunk of plain HTML (grab any small Rails partial) into valid JSX — fix <code>class</code>→<code>className</code>, self-closing tags, single root element.</li>
-  <li>Render a list of 5 hard-coded objects to a <code>&lt;table&gt;</code> using only expressions (no <code>.map</code> yet — just to feel JSX).</li>
-</ol>
-<div class="why"><strong>In crm-web:</strong> <span class="file">app/javascript/components/SidebarBadge.tsx</span> — a small, reusable badge.
-<strong>Why React:</strong> the badge owns interactive popover state, so it's worth a component instead of server-rendered Slim.</div>
-</section>
+    <section>
+      <h2>🧩 2. Components &amp; Props (with TypeScript)</h2>
+      <p>
+        Function components, passing data down via props, and typing those props
+        with a TS <code>interface</code>.
+      </p>
+      <p>
+        📖
+        <a href="https://react.dev/learn/your-first-component"
+          >Your First Component</a
+        >
+        ·
+        <a href="https://react.dev/learn/passing-props-to-a-component"
+          >Passing Props</a
+        >
+        · <a href="https://react.dev/learn/typescript">Using TypeScript</a>
+      </p>
+      <ol class="exercises">
+        <li>
+          Refactor exercise #1's profile card to accept all data via a typed
+          <code>ProfileCardProps</code> interface; render 3 different cards from
+          one component.
+        </li>
+        <li>
+          Build a <code>&lt;Button variant="primary" | "ghost"&gt;</code> with a
+          union-typed prop and a typed <code>onClick</code>.
+        </li>
+        <li>
+          Make a <code>&lt;StatList items={Stat[]}&gt;</code> component and let
+          TS catch a deliberately mistyped prop.
+        </li>
+      </ol>
+      <div class="why">
+        <strong>In crm-web:</strong> every component, e.g.
+        <span class="file">components/SidebarBadge.tsx</span> exports an
+        explicit props interface. <strong>Why:</strong> in a monolith this size,
+        typed props are the contract that stops prop-shape bugs at compile time
+        rather than in production.
+      </div>
+    </section>
 
-<section>
-<h2>🧩 2. Components &amp; Props (with TypeScript)</h2>
-<p>Function components, passing data down via props, and typing those props with a TS <code>interface</code>.</p>
-<p>📖 <a href="https://react.dev/learn/your-first-component">Your First Component</a> ·
-<a href="https://react.dev/learn/passing-props-to-a-component">Passing Props</a> ·
-<a href="https://react.dev/learn/typescript">Using TypeScript</a></p>
-<ol class="exercises">
-  <li>Refactor exercise #1's profile card to accept all data via a typed <code>ProfileCardProps</code> interface; render 3 different cards from one component.</li>
-  <li>Build a <code>&lt;Button variant="primary" | "ghost"&gt;</code> with a union-typed prop and a typed <code>onClick</code>.</li>
-  <li>Make a <code>&lt;StatList items={Stat[]}&gt;</code> component and let TS catch a deliberately mistyped prop.</li>
-</ol>
-<div class="why"><strong>In crm-web:</strong> every component, e.g. <span class="file">components/SidebarBadge.tsx</span> exports an explicit props interface.
-<strong>Why:</strong> in a monolith this size, typed props are the contract that stops prop-shape bugs at compile time rather than in production.</div>
-</section>
+    <section>
+      <h2>🔀 3. Conditional &amp; List Rendering (and keys)</h2>
+      <p>
+        Rendering UI based on a condition, mapping arrays to elements, and why
+        <code>key</code> matters.
+      </p>
+      <p>
+        📖
+        <a href="https://react.dev/learn/conditional-rendering"
+          >Conditional Rendering</a
+        >
+        · <a href="https://react.dev/learn/rendering-lists">Rendering Lists</a>
+      </p>
+      <ol class="exercises">
+        <li>
+          Render a to-do list from an array with <code>.map</code> + stable
+          <code>key</code>; show an "empty state" when the list is empty.
+        </li>
+        <li>
+          Add a "show completed only" toggle that conditionally filters the list
+          (no state library, just an inline filtered array).
+        </li>
+        <li>
+          Deliberately use array index as <code>key</code>, then reorder items,
+          and observe the reconciliation bug — then fix it with stable IDs.
+        </li>
+      </ol>
+      <div class="why">
+        <strong>In crm-web:</strong>
+        <span class="file"
+          >app/javascript/custom_objects/index/components/KanbanColumn.tsx</span
+        >
+        maps cards into columns. <strong>Why keys matter here:</strong> the
+        Kanban board reorders cards via drag-and-drop, so stable keys are
+        required for correct reconciliation during moves.
+      </div>
+    </section>
 
-<section>
-<h2>🔀 3. Conditional &amp; List Rendering (and keys)</h2>
-<p>Rendering UI based on a condition, mapping arrays to elements, and why <code>key</code> matters.</p>
-<p>📖 <a href="https://react.dev/learn/conditional-rendering">Conditional Rendering</a> ·
-<a href="https://react.dev/learn/rendering-lists">Rendering Lists</a></p>
-<ol class="exercises">
-  <li>Render a to-do list from an array with <code>.map</code> + stable <code>key</code>; show an "empty state" when the list is empty.</li>
-  <li>Add a "show completed only" toggle that conditionally filters the list (no state library, just an inline filtered array).</li>
-  <li>Deliberately use array index as <code>key</code>, then reorder items, and observe the reconciliation bug — then fix it with stable IDs.</li>
-</ol>
-<div class="why"><strong>In crm-web:</strong> <span class="file">app/javascript/custom_objects/index/components/KanbanColumn.tsx</span> maps cards into columns.
-<strong>Why keys matter here:</strong> the Kanban board reorders cards via drag-and-drop, so stable keys are required for correct reconciliation during moves.</div>
-</section>
+    <section>
+      <h2>🖱️ 4. Event Handling</h2>
+      <p>
+        Responding to user input with handler functions and the synthetic event
+        system.
+      </p>
+      <p>
+        📖
+        <a href="https://react.dev/learn/responding-to-events"
+          >Responding to Events</a
+        >
+      </p>
+      <ol class="exercises">
+        <li>
+          Build a counter with +/− buttons and a reset; log the event object to
+          see React's synthetic events.
+        </li>
+        <li>
+          Make a search box that calls <code>onChange</code> and renders the
+          current keystrokes (controlled-input preview for §13).
+        </li>
+        <li>
+          Add keyboard handling: a list where ↑/↓ moves a highlighted row
+          (<code>onKeyDown</code>).
+        </li>
+      </ol>
+      <div class="why">
+        <strong>In crm-web:</strong>
+        <span class="file"
+          >custom_objects/index/components/KanbanColumn.tsx</span
+        >
+        wires drag/drop and click callbacks. <strong>Why:</strong> interactive
+        features (reordering, selecting, persisting to the server) need handlers
+        that translate user actions into state changes and API calls.
+      </div>
+    </section>
 
-<section>
-<h2>🖱️ 4. Event Handling</h2>
-<p>Responding to user input with handler functions and the synthetic event system.</p>
-<p>📖 <a href="https://react.dev/learn/responding-to-events">Responding to Events</a></p>
-<ol class="exercises">
-  <li>Build a counter with +/− buttons and a reset; log the event object to see React's synthetic events.</li>
-  <li>Make a search box that calls <code>onChange</code> and renders the current keystrokes (controlled-input preview for §13).</li>
-  <li>Add keyboard handling: a list where ↑/↓ moves a highlighted row (<code>onKeyDown</code>).</li>
-</ol>
-<div class="why"><strong>In crm-web:</strong> <span class="file">custom_objects/index/components/KanbanColumn.tsx</span> wires drag/drop and click callbacks.
-<strong>Why:</strong> interactive features (reordering, selecting, persisting to the server) need handlers that translate user actions into state changes and API calls.</div>
-</section>
+    <section>
+      <h2>🎚️ 5. State with <code>useState</code></h2>
+      <p>
+        Giving a component memory; when a value should be state vs. a plain
+        variable.
+      </p>
+      <p>
+        📖
+        <a href="https://react.dev/learn/state-a-components-memory"
+          >State: A Component's Memory</a
+        >
+        ·
+        <a
+          href="https://react.dev/learn/responding-to-events#state-as-a-snapshot"
+          >State as a Snapshot</a
+        >
+      </p>
+      <ol class="exercises">
+        <li>
+          Build a toggle/accordion that opens and closes with
+          <code>useState&lt;boolean&gt;</code>.
+        </li>
+        <li>
+          Make a tabs component: clicking a tab sets the active tab in state and
+          swaps the panel.
+        </li>
+        <li>
+          Build a "like" button that holds a count and a liked flag; explore why
+          two quick updates may need the <code>setX(prev =&gt; ...)</code> form.
+        </li>
+      </ol>
+      <div class="why">
+        <strong>In crm-web:</strong>
+        <span class="file">components/SidebarBadge.tsx</span> uses
+        <code>useState</code> for popover open/closed.
+        <strong>Why local state:</strong> only this component cares about its
+        popover, so it stays out of Redux — keep state as local as the thing
+        that uses it.
+      </div>
+    </section>
 
-<section>
-<h2>🎚️ 5. State with <code>useState</code></h2>
-<p>Giving a component memory; when a value should be state vs. a plain variable.</p>
-<p>📖 <a href="https://react.dev/learn/state-a-components-memory">State: A Component's Memory</a> ·
-<a href="https://react.dev/learn/responding-to-events#state-as-a-snapshot">State as a Snapshot</a></p>
-<ol class="exercises">
-  <li>Build a toggle/accordion that opens and closes with <code>useState&lt;boolean&gt;</code>.</li>
-  <li>Make a tabs component: clicking a tab sets the active tab in state and swaps the panel.</li>
-  <li>Build a "like" button that holds a count and a liked flag; explore why two quick updates may need the <code>setX(prev =&gt; ...)</code> form.</li>
-</ol>
-<div class="why"><strong>In crm-web:</strong> <span class="file">components/SidebarBadge.tsx</span> uses <code>useState</code> for popover open/closed.
-<strong>Why local state:</strong> only this component cares about its popover, so it stays out of Redux — keep state as local as the thing that uses it.</div>
-</section>
+    <section>
+      <h2>🧠 6. Thinking in React &amp; Derived State</h2>
+      <p>
+        Where state should live, lifting state up, and computing values during
+        render instead of storing duplicates.
+      </p>
+      <p>
+        📖
+        <a href="https://react.dev/learn/thinking-in-react"
+          >Thinking in React</a
+        >
+        ·
+        <a href="https://react.dev/learn/sharing-state-between-components"
+          >Sharing State Between Components</a
+        >
+      </p>
+      <ol class="exercises">
+        <li>
+          Build a filterable product table (search + "in stock only") — store
+          only the raw list + filter inputs; compute the filtered list inline.
+        </li>
+        <li>
+          Take two sibling components (a list and a detail pane) and lift the
+          "selected id" up to their parent.
+        </li>
+        <li>
+          Find a place where you're tempted to add a second piece of state that
+          mirrors the first, then delete it and derive it instead.
+        </li>
+      </ol>
+      <div class="local">
+        <strong>⚠️ crm-web convention:</strong>
+        <span class="file">.claude/rules/react/react-use-effect.md</span> Rule 1
+        is "Derive state, don't sync it." Code that writes
+        <code>useEffect(() =&gt; setX(deriveFromY(y)), [y])</code> will get
+        flagged in review. Learn the standard pattern here, then internalize
+        that this repo enforces it hard.
+      </div>
+    </section>
 
-<section>
-<h2>🧠 6. Thinking in React &amp; Derived State</h2>
-<p>Where state should live, lifting state up, and computing values during render instead of storing duplicates.</p>
-<p>📖 <a href="https://react.dev/learn/thinking-in-react">Thinking in React</a> ·
-<a href="https://react.dev/learn/sharing-state-between-components">Sharing State Between Components</a></p>
-<ol class="exercises">
-  <li>Build a filterable product table (search + "in stock only") — store only the raw list + filter inputs; compute the filtered list inline.</li>
-  <li>Take two sibling components (a list and a detail pane) and lift the "selected id" up to their parent.</li>
-  <li>Find a place where you're tempted to add a second piece of state that mirrors the first, then delete it and derive it instead.</li>
-</ol>
-<div class="local"><strong>⚠️ crm-web convention:</strong> <span class="file">.claude/rules/react/react-use-effect.md</span> Rule 1 is "Derive state, don't sync it."
-Code that writes <code>useEffect(() =&gt; setX(deriveFromY(y)), [y])</code> will get flagged in review. Learn the standard pattern here, then internalize that this repo enforces it hard.</div>
-</section>
+    <section>
+      <h2>📌 7. Refs with <code>useRef</code></h2>
+      <p>
+        Escape hatches for reaching the DOM and for holding mutable values that
+        don't trigger re-renders.
+      </p>
+      <p>
+        📖
+        <a href="https://react.dev/learn/referencing-values-with-refs"
+          >Referencing Values with Refs</a
+        >
+        ·
+        <a href="https://react.dev/learn/manipulating-the-dom-with-refs"
+          >Manipulating the DOM with Refs</a
+        >
+      </p>
+      <ol class="exercises">
+        <li>
+          Build a "focus the input" button that calls
+          <code>inputRef.current.focus()</code>.
+        </li>
+        <li>
+          Make a "copy to clipboard" button that reads text out of a referenced
+          <code>&lt;pre&gt;</code>.
+        </li>
+        <li>
+          Use a ref as a mutable flag (e.g. <code>isMountedRef</code>) and
+          observe it changing without causing re-renders.
+        </li>
+      </ol>
+      <div class="why">
+        <strong>In crm-web:</strong>
+        <span class="file"
+          >app/javascript/settings/components/SaveBackupCodes.tsx</span
+        >
+        refs the button/<code>&lt;pre&gt;</code> for clipboard, and an
+        <code>isMountedRef</code> guards against post-unmount state writes.
+        <strong>Why:</strong> clipboard APIs and async-safety need imperative
+        DOM access that props/state can't express.
+      </div>
+    </section>
 
-<section>
-<h2>📌 7. Refs with <code>useRef</code></h2>
-<p>Escape hatches for reaching the DOM and for holding mutable values that don't trigger re-renders.</p>
-<p>📖 <a href="https://react.dev/learn/referencing-values-with-refs">Referencing Values with Refs</a> ·
-<a href="https://react.dev/learn/manipulating-the-dom-with-refs">Manipulating the DOM with Refs</a></p>
-<ol class="exercises">
-  <li>Build a "focus the input" button that calls <code>inputRef.current.focus()</code>.</li>
-  <li>Make a "copy to clipboard" button that reads text out of a referenced <code>&lt;pre&gt;</code>.</li>
-  <li>Use a ref as a mutable flag (e.g. <code>isMountedRef</code>) and observe it changing without causing re-renders.</li>
-</ol>
-<div class="why"><strong>In crm-web:</strong> <span class="file">app/javascript/settings/components/SaveBackupCodes.tsx</span> refs the button/<code>&lt;pre&gt;</code> for clipboard, and an <code>isMountedRef</code> guards against post-unmount state writes.
-<strong>Why:</strong> clipboard APIs and async-safety need imperative DOM access that props/state can't express.</div>
-</section>
+    <section>
+      <h2>⚡ 8. Effects with <code>useEffect</code></h2>
+      <p>
+        Synchronizing with systems outside React (subscriptions, the DOM,
+        non-React libraries) — and knowing when you <em>don't</em> need an
+        effect.
+      </p>
+      <p>
+        📖
+        <a href="https://react.dev/learn/synchronizing-with-effects"
+          >Synchronizing with Effects</a
+        >
+        ·
+        <a href="https://react.dev/learn/you-might-not-need-an-effect"
+          >You Might Not Need an Effect</a
+        >
+        ·
+        <a href="https://react.dev/learn/lifecycle-of-reactive-effects"
+          >Lifecycle of Reactive Effects</a
+        >
+      </p>
+      <ol class="exercises">
+        <li>
+          Subscribe to <code>window.resize</code> in an effect and render the
+          current width; return a cleanup function and watch it run.
+        </li>
+        <li>
+          Use a <code>MutationObserver</code> in an effect to react to a CSS
+          class toggling on <code>&lt;body&gt;</code>; persist the result to
+          <code>localStorage</code>.
+        </li>
+        <li>
+          Take an effect that only sets state from other state and
+          <em>delete</em> it (reinforces §6).
+        </li>
+      </ol>
+      <div class="why">
+        <strong>In crm-web:</strong>
+        <span class="file"
+          >app/javascript/sidebar/use_more_nav_open_state.ts</span
+        >
+        uses a MutationObserver to sync submenu visibility with sidebar
+        collapse. <strong>Why an effect:</strong> the sidebar state lives in
+        non-React DOM, so React must subscribe to it externally.
+      </div>
+      <div class="local">
+        <strong>⚠️ crm-web convention:</strong> "Never call
+        <code>useEffect</code> directly in components." Use
+        <span class="file">app/javascript/hooks/use_mount_effect.ts</span>
+        (<code>useMountEffect</code>) for run-once-on-mount, or wrap
+        prop-dependent subscriptions in a <em>named</em> custom hook (e.g.
+        <code>useAIMessageSubscription</code>). See
+        <span class="file">.claude/rules/react/react-use-effect.md</span>.
+      </div>
+    </section>
 
-<section>
-<h2>⚡ 8. Effects with <code>useEffect</code></h2>
-<p>Synchronizing with systems outside React (subscriptions, the DOM, non-React libraries) — and knowing when you <em>don't</em> need an effect.</p>
-<p>📖 <a href="https://react.dev/learn/synchronizing-with-effects">Synchronizing with Effects</a> ·
-<a href="https://react.dev/learn/you-might-not-need-an-effect">You Might Not Need an Effect</a> ·
-<a href="https://react.dev/learn/lifecycle-of-reactive-effects">Lifecycle of Reactive Effects</a></p>
-<ol class="exercises">
-  <li>Subscribe to <code>window.resize</code> in an effect and render the current width; return a cleanup function and watch it run.</li>
-  <li>Use a <code>MutationObserver</code> in an effect to react to a CSS class toggling on <code>&lt;body&gt;</code>; persist the result to <code>localStorage</code>.</li>
-  <li>Take an effect that only sets state from other state and <em>delete</em> it (reinforces §6).</li>
-</ol>
-<div class="why"><strong>In crm-web:</strong> <span class="file">app/javascript/sidebar/use_more_nav_open_state.ts</span> uses a MutationObserver to sync submenu visibility with sidebar collapse.
-<strong>Why an effect:</strong> the sidebar state lives in non-React DOM, so React must subscribe to it externally.</div>
-<div class="local"><strong>⚠️ crm-web convention:</strong> "Never call <code>useEffect</code> directly in components." Use <span class="file">app/javascript/hooks/use_mount_effect.ts</span> (<code>useMountEffect</code>) for run-once-on-mount, or wrap prop-dependent subscriptions in a <em>named</em> custom hook (e.g. <code>useAIMessageSubscription</code>). See <span class="file">.claude/rules/react/react-use-effect.md</span>.</div>
-</section>
+    <section>
+      <h2>🪝 9. Custom Hooks</h2>
+      <p>
+        Extracting stateful logic into reusable <code>useXxx</code> functions.
+      </p>
+      <p>
+        📖
+        <a href="https://react.dev/learn/reusing-logic-with-custom-hooks"
+          >Reusing Logic with Custom Hooks</a
+        >
+      </p>
+      <ol class="exercises">
+        <li>
+          Extract a <code>useLocalStorage(key, initial)</code> hook and use it
+          in two unrelated components.
+        </li>
+        <li>
+          Write <code>useWindowSize()</code> wrapping the resize logic from §8;
+          reuse it in a couple of places.
+        </li>
+        <li>
+          Write a <code>useToggle()</code> hook returning
+          <code>[on, toggle, setOn]</code> and refactor your accordion/tabs to
+          use it.
+        </li>
+      </ol>
+      <div class="why">
+        <strong>In crm-web:</strong> 50+ hooks under
+        <span class="file">app/javascript/hooks/</span>, e.g.
+        <code>use_mount_effect.ts</code>, plus feature hooks like
+        <code>use_more_nav_open_state.ts</code>. <strong>Why:</strong> custom
+        hooks are the codebase's preferred unit for reusing logic — and the
+        sanctioned wrapper around raw effects (see §8 convention).
+      </div>
+    </section>
 
-<section>
-<h2>🪝 9. Custom Hooks</h2>
-<p>Extracting stateful logic into reusable <code>useXxx</code> functions.</p>
-<p>📖 <a href="https://react.dev/learn/reusing-logic-with-custom-hooks">Reusing Logic with Custom Hooks</a></p>
-<ol class="exercises">
-  <li>Extract a <code>useLocalStorage(key, initial)</code> hook and use it in two unrelated components.</li>
-  <li>Write <code>useWindowSize()</code> wrapping the resize logic from §8; reuse it in a couple of places.</li>
-  <li>Write a <code>useToggle()</code> hook returning <code>[on, toggle, setOn]</code> and refactor your accordion/tabs to use it.</li>
-</ol>
-<div class="why"><strong>In crm-web:</strong> 50+ hooks under <span class="file">app/javascript/hooks/</span>, e.g. <code>use_mount_effect.ts</code>, plus feature hooks like <code>use_more_nav_open_state.ts</code>.
-<strong>Why:</strong> custom hooks are the codebase's preferred unit for reusing logic — and the sanctioned wrapper around raw effects (see §8 convention).</div>
-</section>
+    <section>
+      <h2>🌐 10. Context</h2>
+      <p>Passing data deep through a tree without prop drilling.</p>
+      <p>
+        📖
+        <a href="https://react.dev/learn/passing-data-deeply-with-context"
+          >Passing Data Deeply with Context</a
+        >
+        ·
+        <a href="https://react.dev/reference/react/useContext"
+          >useContext reference</a
+        >
+      </p>
+      <ol class="exercises">
+        <li>
+          Build a theme context (light/dark) with a provider + a
+          <code>useTheme()</code> consumer hook; toggle it from a deeply nested
+          button.
+        </li>
+        <li>
+          Make a "current user" context and read it in 3 components at different
+          depths.
+        </li>
+        <li>
+          Create a context that identifies which "surface" a subtree is in (e.g.
+          <code>"modal" | "page"</code>) and have a leaf component render
+          differently per surface.
+        </li>
+      </ol>
+      <div class="why">
+        <strong>In crm-web:</strong>
+        <span class="file"
+          >app/javascript/ai_assistant/hooks/ChatSurfaceContext.tsx</span
+        >
+        marks whether a subtree is the chat <em>panel</em> vs. <em>hub</em>.
+        <strong>Why:</strong> it lets per-surface Redux slices stay independent
+        without threading a "surface" prop through every component.
+      </div>
+    </section>
 
-<section>
-<h2>🌐 10. Context</h2>
-<p>Passing data deep through a tree without prop drilling.</p>
-<p>📖 <a href="https://react.dev/learn/passing-data-deeply-with-context">Passing Data Deeply with Context</a> ·
-<a href="https://react.dev/reference/react/useContext">useContext reference</a></p>
-<ol class="exercises">
-  <li>Build a theme context (light/dark) with a provider + a <code>useTheme()</code> consumer hook; toggle it from a deeply nested button.</li>
-  <li>Make a "current user" context and read it in 3 components at different depths.</li>
-  <li>Create a context that identifies which "surface" a subtree is in (e.g. <code>"modal" | "page"</code>) and have a leaf component render differently per surface.</li>
-</ol>
-<div class="why"><strong>In crm-web:</strong> <span class="file">app/javascript/ai_assistant/hooks/ChatSurfaceContext.tsx</span> marks whether a subtree is the chat <em>panel</em> vs. <em>hub</em>.
-<strong>Why:</strong> it lets per-surface Redux slices stay independent without threading a "surface" prop through every component.</div>
-</section>
+    <section>
+      <h2>🗃️ 11. Reducers &amp; Redux Toolkit</h2>
+      <p>
+        Consolidating complex state transitions into a reducer; then the
+        app-wide version with Redux Toolkit.
+      </p>
+      <p>
+        📖
+        <a href="https://react.dev/learn/extracting-state-logic-into-a-reducer"
+          >Extracting State Logic into a Reducer</a
+        >
+        ·
+        <a href="https://redux-toolkit.js.org/tutorials/quick-start"
+          >Redux Toolkit Quick Start</a
+        >
+      </p>
+      <ol class="exercises">
+        <li>
+          Rewrite a multi-action to-do list from many
+          <code>useState</code> calls to a single
+          <code>useReducer</code> (add/toggle/delete/edit actions).
+        </li>
+        <li>
+          Spin up a tiny Redux Toolkit <code>createSlice</code> store for the
+          same to-dos; read with <code>useSelector</code>, write with
+          <code>useDispatch</code>.
+        </li>
+        <li>
+          Add an async <code>createAsyncThunk</code> that "fetches" items from a
+          mock and handles pending/fulfilled/rejected.
+        </li>
+      </ol>
+      <div class="why">
+        <strong>In crm-web:</strong>
+        <span class="file">app/javascript/state/tasks_slice.ts</span> manages a
+        normalized <code>TodoMap</code> with thunks and cross-slice updates.
+        <strong>Why Redux here:</strong> task state is shared app-wide and has
+        many transition types — nested <code>useState</code> wouldn't scale, and
+        slices give predictable, testable updates.
+      </div>
+    </section>
 
-<section>
-<h2>🗃️ 11. Reducers &amp; Redux Toolkit</h2>
-<p>Consolidating complex state transitions into a reducer; then the app-wide version with Redux Toolkit.</p>
-<p>📖 <a href="https://react.dev/learn/extracting-state-logic-into-a-reducer">Extracting State Logic into a Reducer</a> ·
-<a href="https://redux-toolkit.js.org/tutorials/quick-start">Redux Toolkit Quick Start</a></p>
-<ol class="exercises">
-  <li>Rewrite a multi-action to-do list from many <code>useState</code> calls to a single <code>useReducer</code> (add/toggle/delete/edit actions).</li>
-  <li>Spin up a tiny Redux Toolkit <code>createSlice</code> store for the same to-dos; read with <code>useSelector</code>, write with <code>useDispatch</code>.</li>
-  <li>Add an async <code>createAsyncThunk</code> that "fetches" items from a mock and handles pending/fulfilled/rejected.</li>
-</ol>
-<div class="why"><strong>In crm-web:</strong> <span class="file">app/javascript/state/tasks_slice.ts</span> manages a normalized <code>TodoMap</code> with thunks and cross-slice updates.
-<strong>Why Redux here:</strong> task state is shared app-wide and has many transition types — nested <code>useState</code> wouldn't scale, and slices give predictable, testable updates.</div>
-</section>
+    <section>
+      <h2>
+        🚀 12. Performance: <code>memo</code>, <code>useMemo</code>,
+        <code>useCallback</code>
+      </h2>
+      <p>
+        Skipping unnecessary recalculation and re-renders — and not reaching for
+        these prematurely.
+      </p>
+      <p>
+        📖 <a href="https://react.dev/reference/react/useMemo">useMemo</a> ·
+        <a href="https://react.dev/reference/react/useCallback">useCallback</a>
+        · <a href="https://react.dev/reference/react/memo">memo</a>
+      </p>
+      <ol class="exercises">
+        <li>
+          Build a list with an expensive derived value; wrap it in
+          <code>useMemo</code> and use React DevTools' Profiler to see the
+          difference.
+        </li>
+        <li>
+          Pass a handler to a <code>memo()</code>-wrapped child; show it
+          re-rendering, then stabilize the handler with
+          <code>useCallback</code>.
+        </li>
+        <li>
+          Intentionally over-memoize a trivial component, then reason about when
+          the memo costs more than it saves.
+        </li>
+      </ol>
+      <div class="why">
+        <strong>In crm-web:</strong>
+        <span class="file"
+          >app/javascript/custom_fields/create_form/components/CreateFieldForm.tsx</span
+        >
+        uses <code>useMemo</code> to derive an allowed-document-types list once.
+        <strong>Why:</strong> the form rebuilds option lists on every render, so
+        memoizing the derivation avoids redundant work on a heavily-interacted
+        form.
+      </div>
+    </section>
 
-<section>
-<h2>🚀 12. Performance: <code>memo</code>, <code>useMemo</code>, <code>useCallback</code></h2>
-<p>Skipping unnecessary recalculation and re-renders — and not reaching for these prematurely.</p>
-<p>📖 <a href="https://react.dev/reference/react/useMemo">useMemo</a> ·
-<a href="https://react.dev/reference/react/useCallback">useCallback</a> ·
-<a href="https://react.dev/reference/react/memo">memo</a></p>
-<ol class="exercises">
-  <li>Build a list with an expensive derived value; wrap it in <code>useMemo</code> and use React DevTools' Profiler to see the difference.</li>
-  <li>Pass a handler to a <code>memo()</code>-wrapped child; show it re-rendering, then stabilize the handler with <code>useCallback</code>.</li>
-  <li>Intentionally over-memoize a trivial component, then reason about when the memo costs more than it saves.</li>
-</ol>
-<div class="why"><strong>In crm-web:</strong> <span class="file">app/javascript/custom_fields/create_form/components/CreateFieldForm.tsx</span> uses <code>useMemo</code> to derive an allowed-document-types list once.
-<strong>Why:</strong> the form rebuilds option lists on every render, so memoizing the derivation avoids redundant work on a heavily-interacted form.</div>
-</section>
+    <section>
+      <h2>📝 13. Forms &amp; Controlled Inputs (react-hook-form)</h2>
+      <p>
+        Controlled vs. uncontrolled inputs, validation, and the library this
+        repo standardizes on.
+      </p>
+      <p>
+        📖
+        <a href="https://react.dev/reference/react-dom/components/input"
+          >&lt;input&gt; / controlled inputs</a
+        >
+        ·
+        <a href="https://react-hook-form.com/get-started"
+          >react-hook-form: Get Started</a
+        >
+      </p>
+      <ol class="exercises">
+        <li>
+          Build a controlled sign-up form (email/password) with inline
+          validation messages using plain <code>useState</code> first.
+        </li>
+        <li>
+          Rebuild it with react-hook-form's <code>useForm()</code> +
+          <code>register</code> + resolver; compare the boilerplate.
+        </li>
+        <li>
+          Add a dynamic field array (e.g. "add option" rows for a select field)
+          with <code>useFieldArray</code>.
+        </li>
+      </ol>
+      <div class="why">
+        <strong>In crm-web:</strong>
+        <span class="file"
+          >custom_fields/create_form/components/CreateFieldForm.tsx</span
+        >
+        uses <code>useForm()</code> + <code>FormProvider</code> for a multi-step
+        field builder with dynamic option arrays.
+        <strong>Why react-hook-form:</strong> complex forms with validation +
+        field arrays are the norm here; the library keeps re-renders down and
+        validation declarative.
+      </div>
+    </section>
 
-<section>
-<h2>📝 13. Forms &amp; Controlled Inputs (react-hook-form)</h2>
-<p>Controlled vs. uncontrolled inputs, validation, and the library this repo standardizes on.</p>
-<p>📖 <a href="https://react.dev/reference/react-dom/components/input">&lt;input&gt; / controlled inputs</a> ·
-<a href="https://react-hook-form.com/get-started">react-hook-form: Get Started</a></p>
-<ol class="exercises">
-  <li>Build a controlled sign-up form (email/password) with inline validation messages using plain <code>useState</code> first.</li>
-  <li>Rebuild it with react-hook-form's <code>useForm()</code> + <code>register</code> + resolver; compare the boilerplate.</li>
-  <li>Add a dynamic field array (e.g. "add option" rows for a select field) with <code>useFieldArray</code>.</li>
-</ol>
-<div class="why"><strong>In crm-web:</strong> <span class="file">custom_fields/create_form/components/CreateFieldForm.tsx</span> uses <code>useForm()</code> + <code>FormProvider</code> for a multi-step field builder with dynamic option arrays.
-<strong>Why react-hook-form:</strong> complex forms with validation + field arrays are the norm here; the library keeps re-renders down and validation declarative.</div>
-</section>
+    <section>
+      <h2>
+        🧬 14. Composition, <code>children</code> &amp; Headless Components
+      </h2>
+      <p>
+        Designing flexible components via <code>children</code> and slots
+        instead of rigid props; separating logic from presentation.
+      </p>
+      <p>
+        📖
+        <a
+          href="https://react.dev/learn/passing-props-to-a-component#passing-jsx-as-children"
+          >Passing JSX as children</a
+        >
+        ·
+        <a href="https://react.dev/learn/you-might-not-need-an-effect"
+          >(supporting) composition over effects</a
+        >
+      </p>
+      <ol class="exercises">
+        <li>
+          Build a <code>&lt;Card&gt;{children}&lt;/Card&gt;</code> shell, then a
+          <code>&lt;Modal header={...} footer={...}&gt;</code> with named slots.
+        </li>
+        <li>
+          Write a <code>ConditionalWrapper</code> that optionally wraps its
+          children (e.g. in a link only when an <code>href</code> exists).
+        </li>
+        <li>
+          Build a headless <code>useDisclosure()</code> hook and render two
+          totally different UIs (dropdown vs. dialog) from the same logic.
+        </li>
+      </ol>
+      <div class="why">
+        <strong>In crm-web:</strong>
+        <span class="file">components/SidebarBadge.tsx</span> uses a
+        <code>ConditionalWrapper</code> to optionally wrap children in a
+        Popover; the <code>@wds</code> design system is built on headless
+        primitives. <strong>Why:</strong> headless-first composition keeps logic
+        reusable and lets WDS enforce consistent styling without dictating
+        structure. (See the <code>headless-component-designer</code> skill.)
+      </div>
+    </section>
 
-<section>
-<h2>🧬 14. Composition, <code>children</code> &amp; Headless Components</h2>
-<p>Designing flexible components via <code>children</code> and slots instead of rigid props; separating logic from presentation.</p>
-<p>📖 <a href="https://react.dev/learn/passing-props-to-a-component#passing-jsx-as-children">Passing JSX as children</a> ·
-<a href="https://react.dev/learn/you-might-not-need-an-effect">(supporting) composition over effects</a></p>
-<ol class="exercises">
-  <li>Build a <code>&lt;Card&gt;{children}&lt;/Card&gt;</code> shell, then a <code>&lt;Modal header={...} footer={...}&gt;</code> with named slots.</li>
-  <li>Write a <code>ConditionalWrapper</code> that optionally wraps its children (e.g. in a link only when an <code>href</code> exists).</li>
-  <li>Build a headless <code>useDisclosure()</code> hook and render two totally different UIs (dropdown vs. dialog) from the same logic.</li>
-</ol>
-<div class="why"><strong>In crm-web:</strong> <span class="file">components/SidebarBadge.tsx</span> uses a <code>ConditionalWrapper</code> to optionally wrap children in a Popover; the <code>@wds</code> design system is built on headless primitives.
-<strong>Why:</strong> headless-first composition keeps logic reusable and lets WDS enforce consistent styling without dictating structure. (See the <code>headless-component-designer</code> skill.)</div>
-</section>
+    <section>
+      <h2>📡 15. Data Fetching with React Query</h2>
+      <p>
+        Caching, loading/error states, and refetching — replacing ad-hoc
+        <code>fetch</code> + <code>useState</code> + <code>useEffect</code>.
+      </p>
+      <p>
+        📖
+        <a
+          href="https://react.dev/learn/synchronizing-with-effects#fetching-data"
+          >React on data fetching</a
+        >
+        ·
+        <a href="https://tanstack.com/query/v4/docs/framework/react/quick-start"
+          >TanStack Query v4 Quick Start</a
+        >
+      </p>
+      <ol class="exercises">
+        <li>
+          Fetch from a public API (e.g. GitHub users) with
+          <code>useQuery</code>; render loading, error, and success states.
+        </li>
+        <li>
+          Add a 5-minute <code>staleTime</code> and a manual refetch button;
+          watch the cache prevent refetching.
+        </li>
+        <li>
+          Add a <code>useMutation</code> that "creates" something and
+          invalidates the query to refresh the list.
+        </li>
+      </ol>
+      <div class="why">
+        <strong>In crm-web:</strong>
+        <span class="file"
+          >app/javascript/developer_portal/integration-webhooks/hooks/useWebhookEndpoint.ts</span
+        >
+        uses <code>useQuery</code> with a 5-min stale time and per-category
+        error toasts. <strong>Why:</strong> React Query centralizes caching and
+        request states so feature code stops hand-rolling fetch effects (ties
+        directly back to the §8 "you might not need an effect" rule).
+      </div>
+    </section>
 
-<section>
-<h2>📡 15. Data Fetching with React Query</h2>
-<p>Caching, loading/error states, and refetching — replacing ad-hoc <code>fetch</code> + <code>useState</code> + <code>useEffect</code>.</p>
-<p>📖 <a href="https://react.dev/learn/synchronizing-with-effects#fetching-data">React on data fetching</a> ·
-<a href="https://tanstack.com/query/v4/docs/framework/react/quick-start">TanStack Query v4 Quick Start</a></p>
-<ol class="exercises">
-  <li>Fetch from a public API (e.g. GitHub users) with <code>useQuery</code>; render loading, error, and success states.</li>
-  <li>Add a 5-minute <code>staleTime</code> and a manual refetch button; watch the cache prevent refetching.</li>
-  <li>Add a <code>useMutation</code> that "creates" something and invalidates the query to refresh the list.</li>
-</ol>
-<div class="why"><strong>In crm-web:</strong> <span class="file">app/javascript/developer_portal/integration-webhooks/hooks/useWebhookEndpoint.ts</span> uses <code>useQuery</code> with a 5-min stale time and per-category error toasts.
-<strong>Why:</strong> React Query centralizes caching and request states so feature code stops hand-rolling fetch effects (ties directly back to the §8 "you might not need an effect" rule).</div>
-</section>
+    <section>
+      <h2>🛡️ 16. Error Boundaries &amp; Suspense</h2>
+      <p>
+        Containing render-time crashes so one broken subtree doesn't take down
+        the page.
+      </p>
+      <p>
+        📖
+        <a
+          href="https://react.dev/reference/react/Component#catching-rendering-errors-with-an-error-boundary"
+          >Error Boundaries</a
+        >
+        · <a href="https://react.dev/reference/react/Suspense">Suspense</a>
+      </p>
+      <ol class="exercises">
+        <li>
+          Write a class-based error boundary with a fallback UI; wrap a
+          component that throws on a button click.
+        </li>
+        <li>
+          Swap to the <code>react-error-boundary</code> library (already a
+          dependency) with a <code>FallbackComponent</code> + reset.
+        </li>
+        <li>
+          Wrap a lazily-imported component in
+          <code>&lt;Suspense fallback={...}&gt;</code> and watch the fallback
+          appear.
+        </li>
+      </ol>
+      <div class="why">
+        <strong>In crm-web:</strong>
+        <span class="file"
+          >app/javascript/charts/components/ChartFrame.tsx</span
+        >
+        wraps a chart renderer in an error boundary with a fallback.
+        <strong>Why:</strong> charts are rendered from LLM-produced artifacts
+        that can be malformed, so a boundary keeps a bad chart from crashing the
+        whole AI surface.
+      </div>
+    </section>
 
-<section>
-<h2>🛡️ 16. Error Boundaries &amp; Suspense</h2>
-<p>Containing render-time crashes so one broken subtree doesn't take down the page.</p>
-<p>📖 <a href="https://react.dev/reference/react/Component#catching-rendering-errors-with-an-error-boundary">Error Boundaries</a> ·
-<a href="https://react.dev/reference/react/Suspense">Suspense</a></p>
-<ol class="exercises">
-  <li>Write a class-based error boundary with a fallback UI; wrap a component that throws on a button click.</li>
-  <li>Swap to the <code>react-error-boundary</code> library (already a dependency) with a <code>FallbackComponent</code> + reset.</li>
-  <li>Wrap a lazily-imported component in <code>&lt;Suspense fallback={...}&gt;</code> and watch the fallback appear.</li>
-</ol>
-<div class="why"><strong>In crm-web:</strong> <span class="file">app/javascript/charts/components/ChartFrame.tsx</span> wraps a chart renderer in an error boundary with a fallback.
-<strong>Why:</strong> charts are rendered from LLM-produced artifacts that can be malformed, so a boundary keeps a bad chart from crashing the whole AI surface.</div>
-</section>
+    <section>
+      <h2>
+        🔌 17. Mounting React in Rails &amp; Angular (crm-web integration)
+      </h2>
+      <p>
+        The part no generic React course teaches: how React components actually
+        get onto a page in this monolith. There are
+        <strong>6 patterns</strong> — <code>registerComponent</code> is the
+        default.
+      </p>
+      <p>
+        📖 Read first:
+        <span class="file">.claude/rules/react/react-patterns.md</span> ·
+        background:
+        <a href="https://react.dev/reference/react-dom/client/createRoot"
+          >createRoot</a
+        >
+        ·
+        <a href="https://react.dev/reference/react-dom/createPortal"
+          >createPortal</a
+        >
+      </p>
+      <ol class="exercises">
+        <li>
+          Read the 6-pattern decision tree, then find one live example of each
+          pattern in the repo (<code>react_blank</code>,
+          <code>registerComponent</code>, <code>react2angular</code>,
+          <code>autoStart.register</code>, programmatic <code>createRoot</code>,
+          <code>createPortal</code>).
+        </li>
+        <li>
+          Trace one component end-to-end: from a Rails
+          <code>render_component("Name", props: {...})</code> call → its
+          <code>registerComponent</code> registration in
+          <span class="file">app/javascript/init/</span> → the rendered React
+          tree (note the Redux/QueryClient providers injected by
+          <span class="file">shared/components/register_component.tsx</span>).
+        </li>
+        <li>
+          (Reading exercise) Open the <code>wds-new-react-page</code> and
+          <code>wds-registered-screen</code> skills and summarize when you'd
+          pick each.
+        </li>
+      </ol>
+      <div class="why">
+        <strong>In crm-web:</strong>
+        <span class="file"
+          >app/javascript/shared/components/register_component.tsx</span
+        >
+        is the core bridge — it mounts components into
+        <code>data-auto-start</code> divs and wraps them in app-wide providers.
+        <strong>Why it matters:</strong> picking the wrong mounting pattern
+        causes memory leaks or broken Turbolinks navigation, and (per
+        <code>CLAUDE.md</code>) all new UI must be React — Angular is deprecated
+        and bridged thinly via <code>react2angular</code>.
+      </div>
+    </section>
 
-<section>
-<h2>🔌 17. Mounting React in Rails &amp; Angular (crm-web integration)</h2>
-<p>The part no generic React course teaches: how React components actually get onto a page in this monolith. There are <strong>6 patterns</strong> — <code>registerComponent</code> is the default.</p>
-<p>📖 Read first: <span class="file">.claude/rules/react/react-patterns.md</span> ·
-background: <a href="https://react.dev/reference/react-dom/client/createRoot">createRoot</a> ·
-<a href="https://react.dev/reference/react-dom/createPortal">createPortal</a></p>
-<ol class="exercises">
-  <li>Read the 6-pattern decision tree, then find one live example of each pattern in the repo (<code>react_blank</code>, <code>registerComponent</code>, <code>react2angular</code>, <code>autoStart.register</code>, programmatic <code>createRoot</code>, <code>createPortal</code>).</li>
-  <li>Trace one component end-to-end: from a Rails <code>render_component("Name", props: {...})</code> call → its <code>registerComponent</code> registration in <span class="file">app/javascript/init/</span> → the rendered React tree (note the Redux/QueryClient providers injected by <span class="file">shared/components/register_component.tsx</span>).</li>
-  <li>(Reading exercise) Open the <code>wds-new-react-page</code> and <code>wds-registered-screen</code> skills and summarize when you'd pick each.</li>
-</ol>
-<div class="why"><strong>In crm-web:</strong> <span class="file">app/javascript/shared/components/register_component.tsx</span> is the core bridge — it mounts components into <code>data-auto-start</code> divs and wraps them in app-wide providers.
-<strong>Why it matters:</strong> picking the wrong mounting pattern causes memory leaks or broken Turbolinks navigation, and (per <code>CLAUDE.md</code>) all new UI must be React — Angular is deprecated and bridged thinly via <code>react2angular</code>.</div>
-</section>
+    <section>
+      <h2>🧪 18. Testing with React Testing Library</h2>
+      <p>
+        Testing behavior from the user's perspective rather than implementation
+        details.
+      </p>
+      <p>
+        📖
+        <a href="https://testing-library.com/docs/react-testing-library/intro/"
+          >React Testing Library Intro</a
+        >
+        ·
+        <a href="https://testing-library.com/docs/queries/about/"
+          >Queries &amp; priorities</a
+        >
+      </p>
+      <ol class="exercises">
+        <li>
+          Write a test for your §5 tabs component: render it, click a tab,
+          assert the right panel shows (<code>userEvent</code> +
+          <code>screen.getByRole</code>).
+        </li>
+        <li>
+          Test a form's validation: submit empty, assert the error message
+          appears.
+        </li>
+        <li>
+          Mock a fetch/React Query call and assert the loading → success
+          transition.
+        </li>
+      </ol>
+      <div class="why">
+        <strong>In crm-web:</strong>
+        <span class="file"
+          >spec/javascript/charts/OpportunitiesChart.test.tsx</span
+        >
+        renders the real component, mocks <code>ResizeObserver</code>, fires
+        <code>userEvent</code>, and asserts DOM state.
+        <strong>Why this style:</strong> <code>CLAUDE.md</code> forbids
+        slow/flaky feature &amp; system specs — frontend behavior is covered by
+        fast component/unit tests like this.
+      </div>
+    </section>
 
-<section>
-<h2>🧪 18. Testing with React Testing Library</h2>
-<p>Testing behavior from the user's perspective rather than implementation details.</p>
-<p>📖 <a href="https://testing-library.com/docs/react-testing-library/intro/">React Testing Library Intro</a> ·
-<a href="https://testing-library.com/docs/queries/about/">Queries &amp; priorities</a></p>
-<ol class="exercises">
-  <li>Write a test for your §5 tabs component: render it, click a tab, assert the right panel shows (<code>userEvent</code> + <code>screen.getByRole</code>).</li>
-  <li>Test a form's validation: submit empty, assert the error message appears.</li>
-  <li>Mock a fetch/React Query call and assert the loading → success transition.</li>
-</ol>
-<div class="why"><strong>In crm-web:</strong> <span class="file">spec/javascript/charts/OpportunitiesChart.test.tsx</span> renders the real component, mocks <code>ResizeObserver</code>, fires <code>userEvent</code>, and asserts DOM state.
-<strong>Why this style:</strong> <code>CLAUDE.md</code> forbids slow/flaky feature &amp; system specs — frontend behavior is covered by fast component/unit tests like this.</div>
-</section>
-
-<footer>
-<p>📚 <strong>Suggested cadence:</strong> §1–§6 in week one (core mental model), §7–§12 in week two (hooks &amp; state at scale), §13–§16 in week three (real feature work), §17–§18 last — they only make sense once the fundamentals are solid, and they're where crm-web diverges most from generic React.</p>
-<p>🔗 Canonical hub for everything above: <a href="https://react.dev/learn">react.dev/learn</a>. Repo conventions that override the defaults live in <span class="file">.claude/rules/react/</span> and <span class="file">.claude/rules/wds/</span> — read those before opening your first PR.</p>
-</footer>
-
-</body>
+    <footer>
+      <p>
+        📚 <strong>Suggested cadence:</strong> §1–§6 in week one (core mental
+        model), §7–§12 in week two (hooks &amp; state at scale), §13–§16 in week
+        three (real feature work), §17–§18 last — they only make sense once the
+        fundamentals are solid, and they're where crm-web diverges most from
+        generic React.
+      </p>
+      <p>
+        🔗 Canonical hub for everything above:
+        <a href="https://react.dev/learn">react.dev/learn</a>. Repo conventions
+        that override the defaults live in
+        <span class="file">.claude/rules/react/</span> and
+        <span class="file">.claude/rules/wds/</span> — read those before opening
+        your first PR.
+      </p>
+    </footer>
+  </body>
 </html>
