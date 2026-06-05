@@ -66,6 +66,13 @@
           #e8d5fb
         );
       }
+      .portrait {
+        width: 64px;
+        height: 64px;
+        border-radius: 50%;
+        object-fit: cover;
+        float: right;
+      }
     </style>
   </head>
   <body>
@@ -88,6 +95,7 @@
           age: 54,
           hometown: "Tokyo",
           state: "JP",
+          portrait: "img/goromi.png",
         },
         {
           name: "Haruka",
@@ -109,6 +117,7 @@
           age: 52,
           hometown: "Tokyo",
           state: "JP",
+          portrait: "img/kiryu.png",
         },
       ];
 
@@ -121,9 +130,14 @@
         return "";
       }
 
-      function UserCard({ name, gender, age, hometown, state }) {
+      function UserPortrait({ portrait, name }) {
+        return <img src={portrait} alt={name} className="portrait" />;
+      }
+
+      function UserCard({ name, gender, age, hometown, state, portrait }) {
         return (
           <div className={`card ${genderBgClass(gender)}`}>
+            {portrait && <UserPortrait portrait={portrait} name={name} />}
             <p className="name">{name}</p>
             <p className="location">
               {hometown}, {state}
