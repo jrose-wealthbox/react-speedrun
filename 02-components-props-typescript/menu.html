@@ -69,7 +69,7 @@
           name: "Waffle House",
           description:
             "Home-style cooking with a side of violence. Or is it the other way around? You better be good with your fists if you're going to eat here.",
-          minimum_fighting_level: 20,
+          minimum_fighting_level: 5,
           menu_items: [
             {
               id: 572391289,
@@ -201,14 +201,43 @@
         );
       }
 
+      function App() {
+        const [fightingLevel, setFightingLevel] = React.useState(null);
+        const visible =
+          fightingLevel === null
+            ? restaurants
+            : restaurants.filter(
+                (r) => (r.minimum_fighting_level ?? 0) <= fightingLevel,
+              );
+
+        return (
+          <div>
+            <label>
+              Fighting level: {fightingLevel ?? "any"}
+              <input
+                type="range"
+                min={0}
+                max={5}
+                value={fightingLevel ?? 0}
+                onChange={(e) => setFightingLevel(Number(e.target.value))}
+              />
+            </label>
+            {fightingLevel !== null && (
+              <button onClick={() => setFightingLevel(null)}>
+                Reset filters
+              </button>
+            )}
+            <div className="restaurant-list">
+              {visible.map((r) => (
+                <RestaurantCard key={r.id} {...r} />
+              ))}
+            </div>
+          </div>
+        );
+      }
+
       const root = ReactDOM.createRoot(document.getElementById("root"));
-      root.render(
-        <div className="restaurant-list">
-          {restaurants.map((r) => (
-            <RestaurantCard key={r.id} {...r} />
-          ))}
-        </div>,
-      );
+      root.render(<App />);
     </script>
     <div id="root"></div>
   </body>
