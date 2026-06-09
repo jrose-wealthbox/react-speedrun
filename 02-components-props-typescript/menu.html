@@ -1,164 +1,198 @@
 <!doctype html>
 <html>
   <head>
+    <meta charset="utf-8" />
     <style></style>
     <title>Door Dash (Lite)</title>
   </head>
   <body>
-    <div id="root">
-      <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
-      <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
-      <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-      <script type="text/babel">
-        const restaurants = [
-          {
-            id: 420,
-            name: "Sally's Slop Shack",
-            description:
-              "Whatever Sally feels like making today, that's the menu. Sally does a lot of drugs, so she's a little unpredictabble... and very, very good.",
-            minimum_fighting_level: 0,
-            menu_items: [
-              {
-                id: 98723,
-                name: "French Fries",
-                cost: 5.0,
-                calories: 500,
-                user_score: 5,
-              },
-              {
-                id: 1976389,
-                name: "Poutine",
-                cost: 15.0,
-                calories: 1000,
-                user_score: 5,
-              },
-              {
-                id: 348964356,
-                name: "Burger of the Day",
-                cost: 16.0,
-                calories: 750,
-                user_score: 5,
-              },
-              {
-                id: 32479874,
-                name: "Sushi/Nacho Fusion",
-                cost: 13.0,
-                user_score: 5,
-              },
-            ],
-          },
-          {
-            id: 123,
-            name: "Waffle House",
-            description:
-              "Home-style cooking with a side of violence. Or is it the other way around? You better be good with your fists if you're going to eat here.",
-            minimum_fighting_level: 20,
-            menu_items: [
-              {
-                id: 572391289,
-                name: "Chicken and Waffles",
-                cost: 9.0,
-                calories: 900,
-                user_score: 3,
-              },
-              {
-                id: 2912,
-                name: "Chipped Beef",
-                cost: 8.0,
-                calories: 1200,
-                user_score: 2,
-              },
-              {
-                id: 897803,
-                name: "Chair Thrown at Your Face",
-                cost: 0.0,
-                calories: 0,
-                user_score: 5,
-              },
-            ],
-          },
-          {
-            id: 1,
-            name: "Pizza Experience",
-            description:
-              "Nobody knows how good this place is or isn't. There's always a line around the block but diners are forced to sign a strict NDA. Those who violate it seem to... disappear. You may need to jostle a bit to get a spot in line.",
-            minimum_fighting_level: 1,
-            menu_items: [
-              {
-                id: 58990078,
-                name: "Pizza",
-                cost: 50.0,
-                calories: 2000,
-                user_score: 5,
-              },
-            ],
-          },
-          {
-            id: 2,
-            name: "Unreliable Ed's",
-            description:
-              "Ed is kind of unreliable. He did not submit any menu items. We're not really sure if he's open any more? Ed, are you reading this?",
-            minimum_fighting_level: 0,
-          },
-        ];
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script type="text/babel">
+      const restaurants = [
+        {
+          id: 420,
+          name: "Sally's Slop Shack",
+          description:
+            "Whatever Sally feels like making today, that's the menu. Sally does a lot of drugs, so she's a little unpredictabble... and very, very good.",
+          minimum_fighting_level: 0,
+          menu_items: [
+            {
+              id: 98723,
+              name: "French Fries",
+              cost: 5.0,
+              calories: 500,
+              user_score: 5,
+            },
+            {
+              id: 1976389,
+              name: "Poutine",
+              cost: 15.0,
+              calories: 1000,
+              user_score: 5,
+            },
+            {
+              id: 348964356,
+              name: "Burger of the Day",
+              cost: 16.0,
+              calories: 750,
+              user_score: 5,
+            },
+            {
+              id: 32479874,
+              name: "Sushi/Nacho Fusion",
+              cost: 13.0,
+              user_score: 5,
+            },
+          ],
+        },
+        {
+          id: 123,
+          name: "Waffle House",
+          description:
+            "Home-style cooking with a side of violence. Or is it the other way around? You better be good with your fists if you're going to eat here.",
+          minimum_fighting_level: 20,
+          menu_items: [
+            {
+              id: 572391289,
+              name: "Chicken and Waffles",
+              cost: 9.0,
+              calories: 900,
+              user_score: 3,
+            },
+            {
+              id: 2912,
+              name: "Chipped Beef",
+              cost: 8.0,
+              calories: 1200,
+              user_score: 2,
+            },
+            {
+              id: 897803,
+              name: "Chair Thrown at Your Face",
+              cost: 0.0,
+              calories: 0,
+              user_score: 5,
+            },
+          ],
+        },
+        {
+          id: 1,
+          name: "Pizza Experience",
+          description:
+            "Nobody knows how good this place is or isn't. There's always a line around the block but diners are forced to sign a strict NDA. Those who violate it seem to... disappear. You may need to jostle a bit to get a spot in line.",
+          minimum_fighting_level: 1,
+          menu_items: [
+            {
+              id: 58990078,
+              name: "Pizza",
+              cost: 50.0,
+              calories: 2000,
+              user_score: 5,
+            },
+          ],
+        },
+        {
+          id: 2,
+          name: "Unreliable Ed's",
+          description:
+            "Ed is kind of unreliable. He did not submit any menu items. We're not really sure if he's open any more? Ed, are you reading this?",
+          minimum_fighting_level: 0,
+        },
+      ];
 
-        const users = [
-          {
-            name: "Ryu",
-            fighting_level: 99,
-          },
-          {
-            name: "Mrs. Butterworth",
-            fighting_level: 0,
-          },
-          {
-            name: "Brooklyn Brawler",
-            fighting_level: 1,
-          },
-        ];
+      const users = [
+        {
+          name: "Ryu",
+          fighting_level: 99,
+        },
+        {
+          name: "Mrs. Butterworth",
+          fighting_level: 0,
+        },
+        {
+          name: "Brooklyn Brawler",
+          fighting_level: 1,
+        },
+      ];
 
-        function MenuItem({ menu_item }) {
-          return <li key={menu_item.id}>{menu_item.name}</li>;
-        }
+      function clamp(min, max, val) {
+        if (val < min) return min;
+        if (val > max) return max;
+        return val;
+      }
 
-        function MenuItems({ menu_items = [] }) {
-          return (
+      function stars(score) {
+        if (score == null) return null;
+        const n = Math.round(clamp(0, 5, score));
+        return "★".repeat(n) + "☆".repeat(5 - n);
+      }
+
+      function fists(fighting_level) {
+        if (fighting_level == null) return null;
+        const n = Math.round(clamp(0, 5, fighting_level));
+        return "👊".repeat(n);
+      }
+
+      function MenuItem({ menu_item }) {
+        const price = menu_item.cost?.toLocaleString("en-US", {
+          style: "currency",
+          currency: "USD",
+        });
+        return (
+          <li>
+            {menu_item.name} {price} {stars(menu_item.user_score)}{" "}
+            <i>
+              <small>{menu_item?.calories} cal</small>
+            </i>
+          </li>
+        );
+      }
+
+      function MenuItems({ menu_items = [] }) {
+        if (menu_items.length === 0) return <p>No menu available.</p>;
+        return (
+          <div>
             <ul>
               {menu_items.map((menu_item) => (
-                <MenuItem menu_item={menu_item} />
+                <MenuItem menu_item={menu_item} key={menu_item.id} />
               ))}
             </ul>
-          );
-        }
-
-        function RestaurantCard({
-          id,
-          name,
-          description,
-          minimum_fighting_level,
-          menu_items = [],
-        }) {
-          return (
-            <div className="restaurant-card">
-              <h3>{name}</h3>
-              <p>
-                <i>{description}</i>
-              </p>
-              <p>Menu</p>
-              <MenuItems menu_items={menu_items} />
-            </div>
-          );
-        }
-
-        const root = ReactDOM.createRoot(document.getElementById("root"));
-        root.render(
-          <div className="restaurant-list">
-            {restaurants.map((r) => (
-              <RestaurantCard key={r.id} {...r} />
-            ))}
-          </div>,
+          </div>
         );
-      </script>
-    </div>
+      }
+
+      function RestaurantCard({
+        id,
+        name,
+        description,
+        minimum_fighting_level,
+        menu_items = [],
+      }) {
+        return (
+          <div className="restaurant-card">
+            <h3>
+              {name} {fists(minimum_fighting_level)}
+            </h3>
+            <p>
+              <i>{description}</i>
+            </p>
+
+            <MenuItems menu_items={menu_items} />
+          </div>
+        );
+      }
+
+      const root = ReactDOM.createRoot(document.getElementById("root"));
+      root.render(
+        <div className="restaurant-list">
+          {restaurants.map((r) => (
+            <RestaurantCard key={r.id} {...r} />
+          ))}
+        </div>,
+      );
+    </script>
+    <div id="root"></div>
   </body>
 </html>
